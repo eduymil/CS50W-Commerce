@@ -1,0 +1,96 @@
+{% extends "auctions/layout.html" %}
+{% block title %}{{cat}}{% endblock %}
+{% block style %}
+<style>
+    .container{
+        display:flex;
+        flex-direction:column;
+        
+        justify-content: center;
+    }
+    .container2{
+        display:flex;
+        flex-direction:column;
+        margin:10px;
+        border:solid;
+        
+    }
+    #image{
+        display:flex;
+        flex-direction: row;
+    }
+    #word{
+        margin:20px;
+    }
+    .dropbtn {
+        background-color: #04AA6D;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+      }
+      
+      /* The container <div> - needed to position the dropdown content */
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+      
+      /* Dropdown Content (Hidden by Default) */
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+      }
+      
+      /* Links inside the dropdown */
+      .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+      }
+      
+      /* Change color of dropdown links on hover */
+      .dropdown-content a:hover {background-color: #ddd;}
+      
+      /* Show the dropdown menu on hover */
+      .dropdown:hover .dropdown-content {display: block;}
+      
+      /* Change the background color of the dropdown button when the dropdown content is shown */
+      .dropdown:hover .dropbtn {background-color: #3e8e41;}
+</style>
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <h2 id = "test">{{ current }}</h2>
+        <div class="dropdown">
+            <button class="dropbtn">Categories</button>
+            <div class="dropdown-content">
+                    <a href="{% url 'index' %}">All</a>
+                {%for cats in cat%}
+                    <a href="{% url 'category' cats.cat %}">{{cats.cat}}</a>
+                {% endfor %}
+            </div>
+        </div>
+            {% for listings in listing %}
+            <div class="container2">
+                <div class = list>
+                    <div id = "image">
+                        <img src = "{{listings.picture.url}}" height = "auto" width = '500'/>
+                        <div id="word">
+                            <h2><a href = "{% url 'indi' title=listings.id user=listings.user_id%}">{{listings.title}}</a></h2>
+                            Price: {{listings.price}}
+                            <br>
+                            {{listings.description}}
+                            <br>
+                            Posted by <u>{{listings.user_id}}</u>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+            {% endfor %}
+{% endblock %}

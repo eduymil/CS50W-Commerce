@@ -1,0 +1,47 @@
+{% extends "auctions/layout.html" %}
+{% block title %}Active{% endblock %}
+{% block style %}
+<style>
+    .container{
+        display:flex;
+        flex-direction:column;
+        
+        justify-content: center;
+    }
+    .container2{
+        display:flex;
+        flex-direction:column;
+        margin:10px;
+        border:solid;
+        
+    }
+    #image{
+        display:flex;
+        flex-direction: row;
+    }
+    #word{
+        margin:20px;
+    }
+</style>
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <h2 id = "test">Inactive Listings</h2>
+            {% for listings in listing %}
+            <div class="container2">
+                <div class = list>
+                    <div id = "image">
+                        <img src = "{{listings.picture.url}}" height = "auto" width = '500'/>
+                        <div id="word">
+                            <h2><a href = "{% url 'indi' title=listings.id user=listings.user_id%}">{{listings.title}}</a></h2>
+                            Price: {{listings.price}}
+                            <br>
+                            {{listings.description}}
+                            <br>
+                            Posted by <u>{{listings.user_id}}</u>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+            {% endfor %}
+{% endblock %}

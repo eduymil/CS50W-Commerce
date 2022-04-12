@@ -1,0 +1,48 @@
+{% extends "auctions/layout.html" %}
+{% block title %}Watchlist{% endblock %}
+{% block style %}
+<style>
+    .container{
+        display:flex;
+        flex-direction:column;
+        
+        justify-content: center;
+    }
+    .container2{
+        display:flex;
+        flex-direction:column;
+        margin:10px;
+        border:solid;
+        
+    }
+    #image{
+        display:flex;
+        flex-direction: row;
+    }
+    #word{
+        margin:20px;
+    }
+</style>
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <h2 id = "test">Watchlist</h2>
+            {% for listings in watchlists %}
+
+            <div class="container2">
+                <div class = list>
+                    <div id = "image">
+                        <img src = "{{listings.listing_id.picture.url}}" height = "auto" width = '500'/>
+                        <div id="word">
+                            <h2><a href = "{% url 'indi' title=listings.listing_id.id user=listings.listing_id.user_id%}">{{listings.listing_id.title}}</a></h2>
+                            Price: {{listings.listing_id.price}}
+                            <br>
+                            {{listings.listing_id.description}}
+                            <br>
+                            Posted by <u>{{listings.listing_id.user_id}}</u>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+            {% endfor %}
+{% endblock %}

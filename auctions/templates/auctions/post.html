@@ -1,0 +1,123 @@
+{% extends "auctions/layout.html" %}
+{% block title %}{{ listings.title }}{% endblock %}
+{% block style %}
+    <style>
+        .container{
+            display:flex;
+            flex-direction: row;   
+        }
+        div{
+            margin:30px;
+        }
+        .show_comments{
+            display:flex;
+            flex-direction: column;
+        }
+        .big{
+            display:flex
+            flex-direction: column;
+        }
+    </style>    
+{% endblock %}
+{% block body %}
+    <div class = big>
+        <div class="container">
+            <div>
+                {% if listings.status %}
+                    <h2 id = "test">Active Listing</h2>
+                {% else %}
+                    <h2 id = "test">Inactive Listing</h2>
+                {% endif %}
+                <img src = "{{listings.picture.url}}" height = "auto" width = '500'/>
+                <h2>{{listings.title}}</h2>
+                <h5>Starting Bid: {{listings.price}}</h5>
+                <hr>
+                <h3>Description</h3>
+                {{listings.description}}
+            </div>
+            <br>
+            <div class = "show_comments">
+                <h2>Comments</h2>
+                {% for comment in comments %}
+                    <span>
+                        <b>{{comment.user_id}}</b>:{{comment.comment}}
+                    </span>
+                {% endfor%}
+                {% if user.is_authenticated %}
+                    <form method = "post" action= "{% url 'comment' %}">
+                        {% csrf_token %}
+                        <textarea name="comment" placeholder="Comment" rows="4" cols="50"></textarea>
+                        <input type="text" name = "id" hidden value = {{listings.id}}>
+                        <br>
+                        <input type ="submit">
+                    </form>
+                {% else %}
+                    <br>
+                    Login to Comment!
+                {% endif %}
+                {% if request.user == listings.winner %}
+                    <br>
+                    <h5>Congratulations! You have won this auction!</h5>
+                {% endif %}
+                {% if request.user == listings.user_id and not got_bid  %}
+                    <br>
+                    <h5>No one has bid for your item</h5>
+                {% endif %}
+            </div>
+            {% if user.is_authenticated %}
+                {% if wl %} 
+                    <div>
+                        <form action="{% url 'watchlist' user.id %}" method = "post">
+                            {% csrf_token %}
+                            <button name= "id" value={{listings.id}}>Remove from watchlist</button>
+                        </form>
+                    </div>
+                {% endif %}
+                {% if not wl %} 
+                    <div>
+                        <form action="{% url 'watchlist' user.id %}" method = "post">
+                            {% csrf_token %}
+                            <button name= "id" value={{listings.id}}>Add to watchlist</button>
+                        </form>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+        {% if user.is_authenticated %}
+            {% if request.user != listings.user_id and listings.status %}
+                <div>
+                    <form action="{% url 'bid' title=listings.id  %}" method="post">
+                        {% csrf_token %}
+                        <label for "bid">Bid:</label>
+                        <input type = "number" name="bid" step= "0.01" min={{check }}>
+                        <input type = "text" value={{listings.id}} hidden name="id">
+                        <input type = "submit">
+                    </form>
+                </div>
+            {% else %}
+                {% if listings.status %}
+                    <div>
+                        <div id="close">
+                            <form action="{% url 'close' title=listings.id %}" method="post">
+                                {% csrf_token %}
+                                <input type = "submit" value="Close auction">
+                            </form>
+                        </div>
+                    </div>
+                {% else %}
+                    <div><div><h3>Auction Closed</h3></div></div>
+                {% endif %}
+            {% endif %}
+        {% else %}
+            <div><div>
+                Login to bid!<br>
+            </div></div>
+        {% endif %}
+        <div>
+            <div>
+                <h6>Highest Bid: {{highest}}</h6>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

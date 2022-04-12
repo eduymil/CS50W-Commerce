@@ -1,0 +1,16 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}Create Listing{% endblock %}
+{% block body %}
+    <h2>Create Listing</h2>
+    <form enctype="multipart/form-data" action = "{% url 'create' %}" method = 'post'>
+        {% csrf_token %}
+        {{ form}}
+        <label for "category">Category:</label>
+        <select name = "category">
+            {% for categorys in category %}
+            <option id = "cat" value = "{{ categorys.id }}">{{ categorys }}</option>
+            {% endfor %}
+        <input type = 'submit'>
+    </form>
+{% endblock %}
