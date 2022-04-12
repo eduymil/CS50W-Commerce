@@ -14,7 +14,7 @@ You must have <a href="https://code.visualstudio.com/docs/python/python-tutorial
 ## Download required dependencies
 `pip install Pillow`<br>
 ## Make Migrations
-1. `cd` into the commerce directory
+1. `cd cs50w-commerce` into the commerce directory
 2. Run `python manage.py makemigrations`
 3. Run `python manage.py migrate`
 ## Create admin account
