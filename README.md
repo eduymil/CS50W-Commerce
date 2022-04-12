@@ -22,5 +22,4 @@ You must have <a href="https://code.visualstudio.com/docs/python/python-tutorial
 2. Enter your desired username and password
 3. Admin rights can accessed through the /admin route in the url
 ## Run Program
-1. Ensure that you are in the right directory (`cd` into commerce):
-2. Execute `python manage.py runserver` in your terminal
+1. Execute `python manage.py runserver` in your terminal
