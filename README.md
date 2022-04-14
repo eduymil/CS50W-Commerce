@@ -1,5 +1,5 @@
 # CS50W-Commerce
-### Commerce is a Django which allows users to buy and sell items through auctions.
+### Commerce is a Django project which allows users to buy and sell items through auctions.
 It is part of the <a href="https://cs50.harvard.edu/web/2020/">CS50’s Web Programming with Python and JavaScript course.</a><br>
 The project requirements can be found <a href = "https://cs50.harvard.edu/web/2020/projects/2/commerce/">here.</a>
 <img width="960" alt="image" src="https://user-images.githubusercontent.com/102196421/162672014-a8c3a726-92f2-4b22-97d1-6e7e3ac73da7.png">
