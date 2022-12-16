@@ -23,3 +23,4 @@ You must have <a href="https://code.visualstudio.com/docs/python/python-tutorial
 3. Admin rights can accessed through the /admin route in the url
 ## Run Program
 Execute `python manage.py runserver` in your terminal
+Go to the /admin route and add your desired categories
